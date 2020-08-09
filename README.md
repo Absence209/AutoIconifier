@@ -1,6 +1,8 @@
 # AutoIconifier
 A tool to automatically iconify tiles using metadata from the playstation api. Automates the normal functions of tileiconifier with a built-in playstation store search tool to quickly find the games' artwork and metadata to add to your start menu.
 
+# Screenshot
+![Screenshot](https://github.com/Absence209/AutoIconifier/blob/master/Screenshot%202020-08-09%20115955.png?raw=true)
 # Usage
 1. Download the stable v2.0 release from the releases page.
 1. Run the .exe file
