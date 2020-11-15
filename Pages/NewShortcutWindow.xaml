@@ -1,0 +1,94 @@
+﻿<Window x:Class="TileIconifier2._0.Pages.NewShortcutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TileIconifier2._0.Pages"
+        mc:Ignorable="d"
+        Title="Create New Shortcut" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow">
+    <Window.Resources>
+        <Storyboard x:Key="CustomShow">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Menu">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Custom">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Custom">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Menu">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.4" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="EgsShow">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Menu">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Menu">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.4" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="EGS">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="EGS">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <Grid x:Name="EGS" Margin="0" Visibility="Collapsed" Opacity="0">
+            <TextBlock HorizontalAlignment="Center" Margin="0,50,0,0" TextWrapping="Wrap" Text="Choose A Game From Epic Games" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
+            <StackPanel HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <ComboBox x:Name="egscombobox" BorderBrush="{x:Null}" MinWidth="463" Padding="6,5,5,5">
+                    <ComboBox.Background>
+                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                            <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                            <GradientStop Color="#FFE6E6E6" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ComboBox.Background>
+                </ComboBox>
+                <Button Content="Import and Create" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,25,0,0" BorderBrush="{x:Null}" Background="#FFE6E6E6" Padding="5" MinWidth="82" Click="Button_Click_1"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="Custom" Margin="0" Visibility="Collapsed" Opacity="0">
+
+            <TextBlock HorizontalAlignment="Center" Margin="0,50,0,0" TextWrapping="Wrap" Text="Create a custom shortcut" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
+
+            <StackPanel HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="NAME" VerticalAlignment="Top" Margin="-2,0,0,0" FontWeight="Bold"/>
+                <TextBox x:Name="name" TextWrapping="Wrap" Text="Shortcut Name" VerticalAlignment="Top" MinWidth="463" Padding="5" Background="#FFE6E6E6" BorderBrush="{x:Null}"/>
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="URI" VerticalAlignment="Top" Margin="-2,10,0,0" FontWeight="Bold"/>
+                <TextBox x:Name="url" TextWrapping="Wrap" Text="Shortcut Link " VerticalAlignment="Top" MinWidth="463" Padding="5" Background="#FFE6E6E6" BorderBrush="{x:Null}"/>
+                <Button Content="Create" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,25,0,0" BorderBrush="{x:Null}" Background="#FFE6E6E6" Padding="5" MinWidth="82" Click="Button_Click"/>
+            </StackPanel>
+            <Grid HorizontalAlignment="Left" Height="270" Margin="125,80,0,0" VerticalAlignment="Top" Width="565"/>
+        </Grid>
+        <StackPanel x:Name="Menu" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <Image x:Name="egslogo" Height="100" Margin="0" Source="882px-Epic_Games_logo.svg.png" Width="100" ToolTip="Create Shortcut From An Installed Game From Epic Games" MouseUp="egslogo_MouseUp" Cursor="Hand">
+                <Image.Effect>
+                    <DropShadowEffect Direction="-90" BlurRadius="35" Opacity="0.4"/>
+                </Image.Effect>
+            </Image>
+            <Path Data="M106,29 L126,169" Stretch="Fill" Stroke="#99000000" Width="1" Height="60" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0"/>
+            <Grid x:Name="customlogo" Height="100" Width="100" MouseDown="customlogo_MouseDown" ToolTip="Create Custom Shortcut With A Launch URI" Cursor="Hand">
+                <Ellipse Margin="10" Fill="#FFCCCCCC" Stroke="#FF939393">
+                    <Ellipse.Effect>
+                        <DropShadowEffect Direction="-90" BlurRadius="35" Opacity="0.4"/>
+                    </Ellipse.Effect>
+                </Ellipse>
+                <TextBlock Margin="0" TextWrapping="Wrap" Text="+" FontWeight="Bold" FontSize="48" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" LineHeight="77" Foreground="#7F000000"/>
+            </Grid>
+        </StackPanel>
+
+    </Grid>
+</Window>

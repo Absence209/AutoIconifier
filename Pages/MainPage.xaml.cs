@@ -29,6 +29,8 @@ namespace TileIconifier2._0.Pages
         public Storyboard NoResultsOut;
         public Storyboard ShowPSH;
         public Storyboard HidePSH;
+        public Storyboard HideContent;
+        public Storyboard ShowContent;
         public Paragraph PowershellConsole;
         public SolidColorBrush PSHConsoleForeground;
         public SolidColorBrush PSHConsoleBackground;
@@ -40,11 +42,17 @@ namespace TileIconifier2._0.Pages
             NoResultsOut = (Storyboard)FindResource("NoResultsOut");
             ShowPSH = (Storyboard)FindResource("ShowPSH");
             HidePSH = (Storyboard)FindResource("HidePSH");
+            HideContent = (Storyboard)FindResource("HideContent");
+            ShowContent = (Storyboard)FindResource("ShowContent");
             PowershellConsole = new Paragraph();
             PSHConsole.Document = new FlowDocument(PowershellConsole);
             PSHConsoleForeground = (SolidColorBrush)PSHConsole.Foreground;
             PSHConsoleBackground = (SolidColorBrush)PSHConsole.Background;
         }
+
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr hObject);
+
         public void WriteLine(string text, SolidColorBrush foreground, SolidColorBrush background)
         {
             PowershellConsole.Inlines.Add(new Run(text)
@@ -169,6 +177,36 @@ namespace TileIconifier2._0.Pages
             } catch (Exception) { }
         }
 
+        private void PasteExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (Clipboard.ContainsImage())
+            {
+                IDataObject clipboardData = Clipboard.GetDataObject();
+                if (clipboardData != null)
+                {
+                    if (clipboardData.GetDataPresent(DataFormats.Bitmap))
+                    {
+                        try
+                        {
+                            BrushAnimation b = new BrushAnimation()
+                            {
+                                To = new ImageBrush(Clipboard.GetImage()),
+                                Duration = new Duration(TimeSpan.FromMilliseconds(350))
+                            };
+                            LargeThumb.BeginAnimation(Rectangle.FillProperty, b);
+                        } catch (Exception) { }
+                    }
+                }
+            }
+
+            try
+            {
+                var d = (SearchResultItem)playstationResultsView.SelectedItem;
+                if (d == null) return;
+            }
+            catch (Exception) { }
+        }
+
         private async void TextBlock_MouseDown_2(object sender, MouseButtonEventArgs e)
         {
             ShowPSH.Begin();
@@ -278,6 +316,22 @@ namespace TileIconifier2._0.Pages
             }
 
             return bytes;
+        }
+
+        private void TextBlock_MouseDown_3(object sender, MouseButtonEventArgs e)
+        {
+            NewShortcutWindow n = new NewShortcutWindow();
+            n.ShowDialog();
+            EventHandler eh = null;
+            eh = (x, y) =>
+            {
+                HideContent.Completed -= eh;
+                Pages.Splash.instance.GetStuff();
+                Pages.Splash.instance.ParseStuff();
+                ShowContent.Begin();
+            };
+            HideContent.Completed += eh;
+            HideContent.Begin();
         }
     }
     public class SearchResultItem
