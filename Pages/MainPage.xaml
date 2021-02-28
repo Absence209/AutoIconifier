@@ -353,7 +353,11 @@
         </EventTrigger>
     </Page.Triggers>
 
-    <Grid x:Name="grid">
+    <Grid x:Name="grid" Focusable="True">
+        <Grid.CommandBindings>
+            <CommandBinding Command="ApplicationCommands.Paste"
+                  Executed="PasteExecuted" />
+        </Grid.CommandBindings>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -717,7 +721,7 @@
                         </TransformGroup>
                     </Rectangle.RenderTransform>
                 </Rectangle>
-                <Rectangle x:Name="LargeThumb" Fill="#00F4F4F5" Margin="0" Stroke="#0C000000" RadiusX="10" RadiusY="10" StrokeThickness="2"/>
+                <Rectangle x:Name="LargeThumb" Fill="#00F4F4F5" Margin="0" Stroke="#0C000000" RadiusX="10" RadiusY="10" StrokeThickness="2" MouseUp="LargeThumb_MouseUp"/>
             </Grid>
             <StackPanel Margin="10,0" Grid.Row="1">
                 <DockPanel Height="20.62" Margin="0">

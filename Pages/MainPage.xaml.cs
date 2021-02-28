@@ -35,6 +35,8 @@ namespace TileIconifier2._0.Pages
         public SolidColorBrush PSHConsoleForeground;
         public SolidColorBrush PSHConsoleBackground;
 
+        public static Rectangle ShortcutImage;
+
         public MainPage()
         {
             InitializeComponent();
@@ -48,6 +50,7 @@ namespace TileIconifier2._0.Pages
             PSHConsole.Document = new FlowDocument(PowershellConsole);
             PSHConsoleForeground = (SolidColorBrush)PSHConsole.Foreground;
             PSHConsoleBackground = (SolidColorBrush)PSHConsole.Background;
+            ShortcutImage = LargeThumb;
         }
 
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
@@ -332,6 +335,11 @@ namespace TileIconifier2._0.Pages
             };
             HideContent.Completed += eh;
             HideContent.Begin();
+        }
+
+        private void LargeThumb_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            
         }
     }
     public class SearchResultItem

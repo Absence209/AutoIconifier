@@ -28,12 +28,14 @@ namespace TileIconifier2._0.Pages
     {
         public Storyboard EgsShow;
         public Storyboard CustomShow;
+        public Storyboard SteamShow;
 
         public NewShortcutWindow()
         {
             InitializeComponent();
             EgsShow = (Storyboard)FindResource("EgsShow");
             CustomShow = (Storyboard)FindResource("CustomShow");
+            SteamShow = (Storyboard)FindResource("SteamShow");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -124,6 +126,29 @@ namespace TileIconifier2._0.Pages
 
             return string.Join("", filename.Split(System.IO.Path.GetInvalidFileNameChars()));
 
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (steamcombobox.SelectedItem == null) return;
+            SteamAppState ev = (SteamAppState)steamcombobox.SelectedItem;
+            var parameters = GenerateParams(ev.GetLaunchUri(), "", true);
+            try
+            {
+                GenerateShortcut(new UriCustomShortcutBuilder(parameters), ev.name);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error");
+            }
+            this.Close();
+        }
+
+        private void steamlogo_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var games = SteamService.GetSteamVideoGames();
+            steamcombobox.ItemsSource = games;
+            SteamShow.Begin();
         }
     }
 }

@@ -39,12 +39,38 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="SteamShow">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="STEAM">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="{x:Static Visibility.Collapsed}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.7" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="STEAM">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Menu">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.7" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Menu">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
         </EventTrigger>
     </Window.Triggers>
     <Grid>
+        <Grid x:Name="STEAM" Visibility="Collapsed" Opacity="0">
+            <StackPanel VerticalAlignment="Center" Margin="0" HorizontalAlignment="Center" MinWidth="413">
+                <ComboBox x:Name="steamcombobox" Height="22" Margin="0,0,0,20"/>
+                <Button Content="Import and Create" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{x:Null}" Padding="7,5" ScrollViewer.CanContentScroll="True" Click="Button_Click_2"/>
+            </StackPanel>
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Add a game from steam" VerticalAlignment="Top" Margin="0,42,0,0" FontWeight="Bold" FontSize="24"/>
+        </Grid>
+
         <Grid x:Name="EGS" Margin="0" Visibility="Collapsed" Opacity="0">
             <TextBlock HorizontalAlignment="Center" Margin="0,50,0,0" TextWrapping="Wrap" Text="Choose A Game From Epic Games" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
             <StackPanel HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
@@ -74,6 +100,11 @@
             <Grid HorizontalAlignment="Left" Height="270" Margin="125,80,0,0" VerticalAlignment="Top" Width="565"/>
         </Grid>
         <StackPanel x:Name="Menu" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <Image x:Name="steamlogo" Height="100" Margin="0,0,5,0" Source="steam-logo-transparent.png" Width="100" ToolTip="Create Shortcut From An Installed Game From Epic Games" MouseUp="steamlogo_MouseUp" Cursor="Hand" RenderTransformOrigin="0.5,0.5">
+                <Image.Effect>
+                    <DropShadowEffect Direction="-90" BlurRadius="35" Opacity="0.4"/>
+                </Image.Effect>
+            </Image>
             <Image x:Name="egslogo" Height="100" Margin="0" Source="882px-Epic_Games_logo.svg.png" Width="100" ToolTip="Create Shortcut From An Installed Game From Epic Games" MouseUp="egslogo_MouseUp" Cursor="Hand">
                 <Image.Effect>
                     <DropShadowEffect Direction="-90" BlurRadius="35" Opacity="0.4"/>
